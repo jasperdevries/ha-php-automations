@@ -14,11 +14,6 @@ class Config
 
     private array $config = [];
 
-    public function __construct()
-    {
-
-    }
-
     public static function instance(): self
     {
         if (!isset(self::$instance)) {
