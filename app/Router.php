@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App;
 
-use function array_key_exists;
-use function is_array;
+use App\Attributes\Event;
+use ReflectionClass;
+use ReflectionException;
+use function basename;
+use function in_array;
 
 class Router
 {
@@ -27,19 +30,20 @@ class Router
     /**
      * Check if the event is listened to, if not then just continue, otherwise run the automations
      * @return void
+     * @throws ReflectionException
      */
     public function execute(): void
     {
-        $routes = require __DIR__ . '/../automations.php';
-        if (array_key_exists($this->event, $routes)) {
-            $automations = $routes[$this->event];
-            if (!is_array($automations)) {
-                $automations = [$automations];
-            }
-
-            foreach ($automations as $automation) {
-                $executable = new $automation($this->event);
-                $executable($this->data);
+        $eventsRan = [];
+        $automationsFolder = implode('/', [Application::$applicationFolder, 'app/Automations']);
+        foreach (glob($automationsFolder . '/*.php') as $file) {
+            $automationClass = 'App\\Automations\\' . basename($file, '.php');
+            $reflection = new ReflectionClass($automationClass);
+            foreach ($reflection->getAttributes(Event::class) as $attribute) {
+                if ($attribute->getArguments()[0] === $this->event && !in_array($automationClass, $eventsRan)) {
+                    $eventsRan[] = $automationClass;
+                    $reflection->newInstance($this->event)->execute($this->data);
+                }
             }
         }
     }

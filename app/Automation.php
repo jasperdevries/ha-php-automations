@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Automations;
+namespace App;
 
 use App\HomeAssistant\HomeAssistant;
 use Exception;
@@ -20,5 +20,5 @@ abstract class Automation
         $this->ha = new HomeAssistant(config('homeassistant.host'), config('homeassistant.token'));
     }
 
-    abstract function __invoke(array $data): void;
+    abstract function execute(array $data): void;
 }

@@ -32,11 +32,12 @@
   </component>
   <component name="PhpInterpreters">
     <interpreters>
-      <interpreter id="57b0a62a-1ea7-4074-aac3-a07d50510199" name="DDEV" home="docker-compose://DATA" auto="false" debugger_id="php.debugger.XDebug">
+      <interpreter id="57b0a62a-1ea7-4074-aac3-a07d50510199" name="ha-php-automations" home="docker-compose://DATA" auto="false" debugger_id="php.debugger.XDebug">
         <remote_data INTERPRETER_PATH="php8.3" HELPERS_PATH="/opt/.phpstorm_helpers" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="web" DOCKER_REMOTE_PROJECT_PATH="/opt/project">
           <PathMappingSettings>
             <option name="pathMappings">
               <list>
+                <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html" />
                 <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html" />
                 <mapping local-root="$PROJECT_DIR$/.ddev" remote-root="/mnt/ddev_config" />
                 <mapping local-root="$PROJECT_DIR$/.ddev/xhprof" remote-root="/usr/local/bin/xhprof" />

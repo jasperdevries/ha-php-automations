@@ -12,8 +12,12 @@ use const PATHINFO_FILENAME;
 
 class Application
 {
+    public static string $applicationFolder;
+
     public static function boot(string $directory): void
     {
+        self::$applicationFolder = $directory;
+
         $dotenv = Dotenv::createImmutable($directory);
         $dotenv->load();
 
